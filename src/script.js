@@ -129,11 +129,48 @@ const cursor = {
     y: 0
 }
 
+let leftDark = document.querySelector('.left_dark')
+let rightDark = document.querySelector('.right_dark')
+
+let leftText = document.querySelector('.left_text')
+let rightText = document.querySelector('.right_text')
+
 window.addEventListener('mousemove', (e) => {
+    //console.log(leftDark, rightDark)
     cursor.x = e.clientX / sizes.width - 0.5
     cursor.y = e.clientY / sizes.height - 0.5
 
+    const textSection = document.querySelector('.section_text');
+    const observer = new IntersectionObserver(entries =>{
+        console.log(entries[0].intersectionRatio)
+        if(entries[0].intersectionRatio > 0.95){
+            
+            if(cursor.x<0){
+                //console.log(rightDark.style.display)
+                rightDark.style.display = 'block';
+                leftDark.style.display = 'none';
+                rightText.style.display = 'none';
+                leftText.style.display = 'block';
+            }else{
+                rightDark.style.display = 'none';
+                leftDark.style.display = 'block';
+                rightText.style.display = 'block';
+                leftText.style.display = 'none';
+            }
+    }else{
+        rightDark.style.display = 'none';
+                leftDark.style.display = 'none';
+                rightText.style.display = 'none';
+                leftText.style.display = 'none';
+    }
 })
+    observer.observe(textSection)
+    //console.log(cursor)
+    
+})
+
+
+
 
 
 
@@ -145,19 +182,23 @@ const tick = () => {
 
     console.log
     if (model !== undefined) {
-        // const intro = document.querySelector('.intro');
-        // const observer = new IntersectionObserver(entries =>{
+        const intro = document.querySelector('.intro');
+        const observer = new IntersectionObserver(entries =>{
             
-        //     if(!entries[0].intersectionRatio ==0){
+            if(entries[0].intersectionRatio >0.7){
                 
-        //         //camera.position.y =- (cursor.y * Math.PI *0.1) 
-    
-        //     }
-        // })
-        // observer.observe(intro)
+                camera.position.x = -(cursor.x * Math.PI) * 0.5 * 2
+                camera.lookAt(model.position)
+            }else{
+                camera.position.x = 0
+                camera.lookAt(model.position)
+            }
+        })
+        observer.observe(intro)
 
-        camera.position.x = -(cursor.x * Math.PI) * 0.5 * 2
-        camera.lookAt(model.position)
+
+        //camera.position.x = -(cursor.x * Math.PI) * 0.5 * 2
+                camera.lookAt(model.position)
     }
 
     // Update controls
@@ -228,13 +269,22 @@ const desktopAnimation = () => {
         }
     }).to(camera.position, { x: 2, y: 1, z: 3.5 });
     if(cursor.x < (window.innerWidth /2)){
-        gsap.from('.right_mov', {
+        gsap.from('.left_text', {
             scrollTrigger: {
-                trigger: '.right_mov',
+                trigger: '.left_text',
                 toggleActions: "restart pause resume none",
-                scrub: true
             },
             xPercent: -100,
+            opacity: 0,
+            ease: 'power2.inOut',
+            duration: 2,
+        });
+        gsap.from('.right_text', {
+            scrollTrigger: {
+                trigger: '.right_text',
+                toggleActions: "restart pause resume none",
+            },
+            xPercent: 100,
             opacity: 0,
             ease: 'power2.inOut',
             duration: 2,

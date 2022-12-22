@@ -10,6 +10,7 @@ body {
     overflow-x: hidden;
     font-size: 20px;
     font-family: var(--font-body);
+    background-color: #000;
 }
 
 body.ready {
@@ -45,17 +46,43 @@ section {
     padding-left: 3em;
 }
 
-.section_scale{
+.section_text{
     position: relative;
 }
 
-.dark{
+
+
+.left_text{
+    position: absolute;
+    font-size: 2rem;
+    top: 20%;
+    margin-left: 5%;
+}
+
+.right_text{
+    position: absolute;
+    font-size: 2rem;
+    top: 20%;
+    right: 5%;
+    /* margin-right: 10%; */
+}
+
+.right_dark, .left_dark{
     position: absolute;
     background-color: rgb(0, 0, 0);
     opacity: 0.9;
     top: 0;
-    right: 0;
     width: 50%;
     height: 100vh;
+}
+
+.right_dark{
+    right: 0;
     display: none;
+}
+
+.left_dark{
+    left: 0;
+    display: none;
+    width: 50.5%;
 }
