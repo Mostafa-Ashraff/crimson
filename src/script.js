@@ -78,7 +78,7 @@ window.addEventListener('resize', () => {
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100)
 camera.position.set(2, 1, 5)
 scene.add(camera)
-    // scene.add(new THREE.AxesHelper());
+     scene.add(new THREE.AxesHelper());
 
 
 
@@ -135,16 +135,28 @@ window.addEventListener('mousemove', (e) => {
 
 })
 
+
+
+
 const tick = () => {
     const elapsedTime = clock.getElapsedTime()
     const deltaTime = elapsedTime - previousTime
     previousTime = elapsedTime
 
-
+    console.log
     if (model !== undefined) {
-        camera.position.x = cursor.x * Math.PI * 0.5 * 2
-            //camera.position.y =- (cursor.y * Math.PI *0.1) 
+        // const intro = document.querySelector('.intro');
+        // const observer = new IntersectionObserver(entries =>{
+            
+        //     if(!entries[0].intersectionRatio ==0){
+                
+        //         //camera.position.y =- (cursor.y * Math.PI *0.1) 
+    
+        //     }
+        // })
+        // observer.observe(intro)
 
+        camera.position.x = -(cursor.x * Math.PI) * 0.5 * 2
         camera.lookAt(model.position)
     }
 
@@ -182,15 +194,15 @@ tick()
 const setupAnimation = () => {
     // model.position.x = 5
     const allowScroll = () => {
-        gsap.timleline({
-                ScrollTrigger: {
-                    trigger: '.page',
-                    start: 'top bottom',
-                    end: 'top top',
-                    scrub: 0.1
-                }
-            })
-            .to(camera.position, { x: 2, y: 1, z: 3.5 })
+        // gsap.timleline({
+        //         ScrollTrigger: {
+        //             trigger: '.page',
+        //             start: 'top bottom',
+        //             end: 'top top',
+        //             scrub: 0.1
+        //         }
+        //     })
+        //     .to(camera.position, { x: 2, y: 1, z: 3.5 })
     }
 
     gsap.timeline({ onComplete: allowScroll })
@@ -208,24 +220,27 @@ const desktopAnimation = () => {
             ease: "power2.inOut"
         },
         scrollTrigger: {
-            trigger: ".section_scale",
-            start: "top top",
-            end: "center center",
+            trigger: ".intro",
+            start: "10% 10%",
+            end: "+=400",
             scrub: 1,
             markers: true
         }
     }).to(camera.position, { x: 2, y: 1, z: 3.5 });
+    if(cursor.x < (window.innerWidth /2)){
+        gsap.from('.right_mov', {
+            scrollTrigger: {
+                trigger: '.right_mov',
+                toggleActions: "restart pause resume none",
+                scrub: true
+            },
+            xPercent: -100,
+            opacity: 0,
+            ease: 'power2.inOut',
+            duration: 2,
+        });
+    }
 
-    gsap.from('.right_mov', {
-        scrollTrigger: {
-            trigger: '.right_mov',
-            toggleActions: "restart pause resume none"
-        },
-        x: '-100vw',
-        opacity: 0,
-        ease: 'power2.inOut',
-        duration: 2,
-    });
 };
 
 setupAnimation();
@@ -254,20 +269,20 @@ console.log(model);
 // }
 
 // cast a ray
-const raycaster = new THREE.Raycaster();
-const mouse = new THREE.Vector2;
-let currentIntersect = null;
+// const raycaster = new THREE.Raycaster();
+// const mouse = new THREE.Vector2;
+// let currentIntersect = null;
 
 
-window.addEventListener('click', () => {
-    if (currentIntersect) {
-        console.log('1');
-    } else {
-        console.log('no');
-        // gsap.to(model.position, { x: 1 })
-    }
+// window.addEventListener('click', () => {
+//     if (currentIntersect) {
+//         console.log('1');
+//     } else {
+//         console.log('no');
+//         // gsap.to(model.position, { x: 1 })
+//     }
 
-});
+// });
 
 // function updateCamera(ev) {
 //     // let div1 = document.getElementById("div1");
