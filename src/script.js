@@ -1,18 +1,17 @@
 import './style.css'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
-import * as dat from 'lil-gui'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { RectAreaLightHelper } from 'three/examples/jsm/helpers/RectAreaLightHelper';
 import { RectAreaLightUniformsLib } from 'three/examples/jsm/lights/RectAreaLightUniformsLib';
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Raycaster } from 'three';
 gsap.registerPlugin(ScrollTrigger);
 /**
  * Base
  */
-// Debug
-const gui = new dat.GUI()
+
 
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
@@ -35,6 +34,7 @@ gltfLoader.load('/models/Duck/glTF/Logo.gltf',
         model.rotation.y = Math.PI;
         model.receiveShadow = true;
         model.castShadow = true;
+        // model.position.y = -2;
         scene.add(model)
             // console.log(gltf.scene)
     })
@@ -155,25 +155,42 @@ const tick = () => {
     renderer.render(scene, camera)
 
     // Call tick again on the next frame
-    window.requestAnimationFrame(tick)
+    window.requestAnimationFrame(tick);
+
+
+    // const intersects = raycaster.intersectObject(model);
+    // console.log('in', intersects);
+    // // raycaster.setFromCamera(mouse, camera);
+
+    // if (intersects.length) {
+    //     console.log('1');
+    // } else {
+    //     console.log('2');
+    // }
+
+
 
 
 }
 
 tick()
-    // start scrolltrigger
+
+
+
+// start scrolltrigger
 
 const setupAnimation = () => {
+    // model.position.x = 5
     const allowScroll = () => {
         gsap.timleline({
                 ScrollTrigger: {
                     trigger: '.page',
                     start: 'top bottom',
                     end: 'top top',
-                    scrub: 1
+                    scrub: 0.1
                 }
             })
-            .to(camera.position, { x: 2, y: 1, z: 4 })
+            .to(camera.position, { x: 2, y: 1, z: 3.5 })
     }
 
     gsap.timeline({ onComplete: allowScroll })
@@ -191,18 +208,73 @@ const desktopAnimation = () => {
             ease: "power2.inOut"
         },
         scrollTrigger: {
-            trigger: ".page",
+            trigger: ".section_scale",
             start: "top top",
-            end: "bottom bottom",
-            scrub: 0.1,
+            end: "center center",
+            scrub: 1,
             markers: true
         }
-    }).to(camera.position, { x: 2, y: 1, z: 3.5 })
+    }).to(camera.position, { x: 2, y: 1, z: 3.5 });
 
-
-
+    gsap.from('.right_mov', {
+        scrollTrigger: {
+            trigger: '.right_mov',
+            toggleActions: "restart pause resume none"
+        },
+        x: '-100vw',
+        opacity: 0,
+        ease: 'power2.inOut',
+        duration: 2,
+    });
 };
 
 setupAnimation();
+console.log(model);
+
+
+
+// click event (ٌRaycaster)
+
+// const selectedHalf = null;
+
+
+// function onClick(event) {
+//     console.log(model.children[0]);
+//     // gsap.to(model.position, { duration: 2, x: '10px', ease: 'power2.in' });
+
+//     // raycaster.setFromCamera(mouse, camera);
+//     // let intersects = raycaster.intersectObject(scene.children);
+//     // console.log('in = ', intersects);
+//     // if (intersects > 0) {
+//     //   // selectedHalf= intersects[0].object.userData
+//     // }
+
+
+
+// }
+
+// cast a ray
+const raycaster = new THREE.Raycaster();
+const mouse = new THREE.Vector2;
+let currentIntersect = null;
+
+
+window.addEventListener('click', () => {
+    if (currentIntersect) {
+        console.log('1');
+    } else {
+        console.log('no');
+        // gsap.to(model.position, { x: 1 })
+    }
+
+});
+
+// function updateCamera(ev) {
+//     // let div1 = document.getElementById("div1");
+//     camera.position.x = 10 - window.scrollY / 500.0;
+//     camera.position.z = 10 - window.scrollY / 500.0;
+// }
+
+// window.addEventListener("scroll", updateCamera);
 
 // const gltfLoader = new GLTFLoader(LoadingManager);

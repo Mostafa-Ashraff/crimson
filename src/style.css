@@ -28,5 +28,19 @@ body.ready {
 .page {
     position: relative;
     z-index: 2;
-    height: 200vh;
+    /* height: 200vh; */
+    color: #fff;
+}
+
+section {
+    height: 100vh;
+    outline: 1px solid red;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.w-50 {
+    width: 50%;
+    padding-left: 3em;
 }
