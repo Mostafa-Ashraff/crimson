@@ -1,23 +1,26 @@
 import './style.css'
 import * as THREE from 'three'
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { RectAreaLightHelper } from 'three/examples/jsm/helpers/RectAreaLightHelper';
 import { RectAreaLightUniformsLib } from 'three/examples/jsm/lights/RectAreaLightUniformsLib';
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Raycaster } from 'three';
+import * as dat from 'lil-gui'
 gsap.registerPlugin(ScrollTrigger);
 /**
  * Base
  */
-
-
+const leftBtn = document.querySelector('.left_btn')
+const rightBtn = document.querySelector('.right_btn')
+const btns = document.querySelectorAll('.btn')
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
 
 // Scene
 const scene = new THREE.Scene()
+
+
+
 
 
 /**
@@ -76,9 +79,9 @@ window.addEventListener('resize', () => {
  */
 // Base camera
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100)
-camera.position.set(2, 1, 5)
+camera.position.set(0, 1, 5)
 scene.add(camera)
-     scene.add(new THREE.AxesHelper());
+     //scene.add(new THREE.AxesHelper());
 
 
 
@@ -134,7 +137,7 @@ let rightDark = document.querySelector('.right_dark')
 
 let leftText = document.querySelector('.left_text')
 let rightText = document.querySelector('.right_text')
-
+let btnClicked = false
 window.addEventListener('mousemove', (e) => {
     //console.log(leftDark, rightDark)
     cursor.x = e.clientX / sizes.width - 0.5
@@ -143,7 +146,7 @@ window.addEventListener('mousemove', (e) => {
     const textSection = document.querySelector('.section_text');
     const observer = new IntersectionObserver(entries =>{
         console.log(entries[0].intersectionRatio)
-        if(entries[0].intersectionRatio > 0.95){
+        if(entries[0].intersectionRatio > 0.95 && !btnClicked){
             
             if(cursor.x<0){
                 //console.log(rightDark.style.display)
@@ -185,12 +188,12 @@ const tick = () => {
         const intro = document.querySelector('.intro');
         const observer = new IntersectionObserver(entries =>{
             
-            if(entries[0].intersectionRatio >0.7){
+            if(entries[0].intersectionRatio >0.1){
                 
                 camera.position.x = -(cursor.x * Math.PI) * 0.5 * 2
                 camera.lookAt(model.position)
             }else{
-                camera.position.x = 0
+                //camera.position.x = 0
                 camera.lookAt(model.position)
             }
         })
@@ -265,9 +268,9 @@ const desktopAnimation = () => {
             start: "10% 10%",
             end: "+=400",
             scrub: 1,
-            markers: true
+            //markers: true
         }
-    }).to(camera.position, { x: 2, y: 1, z: 3.5 });
+    }).to(camera.position, {  z: 3.5 });
     if(cursor.x < (window.innerWidth /2)){
         gsap.from('.left_text', {
             scrollTrigger: {
@@ -343,3 +346,48 @@ console.log(model);
 // window.addEventListener("scroll", updateCamera);
 
 // const gltfLoader = new GLTFLoader(LoadingManager);
+
+
+rightBtn.addEventListener('click',(e)=>{
+    e.preventDefault()
+    btnClicked =true
+    gsap.to(camera.position, {
+        x: 0.58,
+        y:1.45,
+        z:0.74,
+        duration: 2
+    })
+    rightDark.style.display = 'none';
+    leftDark.style.display = 'none';
+    rightText.style.display = 'none';
+    leftText.style.display = 'none';
+    window.location.href ='https://crimsonroseliving.com/'
+})
+
+
+leftBtn.addEventListener('click',(e)=>{
+    e.preventDefault()
+    btnClicked = true
+    gsap.to(camera.position, {
+        x: -0.93,
+        y:1.27,
+        z:0.22,
+        duration: 1.5
+    })
+    rightDark.style.display = 'none';
+    leftDark.style.display = 'none';
+    rightText.style.display = 'none';
+    leftText.style.display = 'none';
+    window.location.href ='https://crimsonroseliving.com/'
+})
+
+
+
+// const gui = new dat.GUI()
+// gui.add(camera.position, 'x', - 10, 10, 0.01).name('camera.px')
+// gui.add(camera.position, 'y', - 10, 10, 0.01).name('camera.py')
+// gui.add(camera.position, 'z', - 10, 10, 0.01).name('camera.pz')
+
+// gui.add(camera.rotation, 'y', - 10, 10, 0.01).name('camera.Ry')
+// gui.add(camera.rotation, 'x', - 10, 10, 0.01).name('camera.Rx')
+// gui.add(camera.rotation, 'z', - 10, 10, 0.01).name('camera.Rz')
