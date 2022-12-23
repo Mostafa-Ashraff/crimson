@@ -73,19 +73,20 @@ section {
     background-color: rgb(0, 0, 0);
     opacity: 0.9;
     top: 0;
-    width: 50%;
+    width: 23%;
     height: 100vh;
 }
 
 .right_dark{
     right: 0;
     display: none;
+    width: 21.5%;
 }
 
 .left_dark{
     left: 0;
     display: none;
-    width: 50.5%;
+    
 }
 
 .btn{
