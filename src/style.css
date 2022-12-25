@@ -4,7 +4,6 @@ body {
     height: 100%;
     margin: 0;
     padding: 0;
-    
 }
 
 body {
@@ -21,7 +20,7 @@ body.ready {
 .webgl {
     z-index: -1;
     position: fixed;
-    top: 0;
+    top: 10%;
     left: 0;
     width: 100%;
     height: 100%;
@@ -30,13 +29,11 @@ body.ready {
 .page {
     position: relative;
     z-index: 2;
-    /* height: 200vh; */
     color: #fff;
 }
 
 section {
     height: 100vh;
-    /* outline: 1px solid red; */
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -47,58 +44,109 @@ section {
     padding-left: 3em;
 }
 
-.section_text{
+.section_text {
     position: relative;
 }
 
-
-
-.left_text{
+.abs_pos {
     position: absolute;
-    font-size: 2rem;
-    top: 20%;
-    margin-left: 5%;
 }
 
-.right_text{
-    position: absolute;
-    font-size: 2rem;
-    top: 20%;
-    right: 5%;
-    /* margin-right: 10%; */
+.hidden_text {
+    width: 60%;
+    display: none;
+    font-size: .8em;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
 }
 
-.right_dark, .left_dark{
+.hidden_text p {
+    width: 80%;
+}
+
+.center_left {
+    left: 15%;
+}
+
+.center_right {
+    left: 65%
+}
+
+.left_text {
+    left: 5%;
+    -webkit-animation-duration: 2s;
+    -webkit-animation-name: slidein_left;
+}
+
+.right_text {
+    left: 50%;
+    -webkit-animation-duration: 2s;
+    -webkit-animation-name: slidein_right;
+}
+
+.right_dark,
+.left_dark {
     position: absolute;
     background-color: rgb(0, 0, 0);
-    opacity: 0.9;
     top: 0;
-    width: 23%;
     height: 100vh;
+    opacity: 0;
+    display: none;
+    -webkit-animation-duration: 2s;
+    -webkit-animation-delay: 2s;
+    -webkit-animation-name: opacity;
+    animation-fill-mode: forwards;
 }
 
-.right_dark{
+.right_dark {
     right: 0;
-    display: none;
-    width: 21.5%;
+    width: 22.3%;
 }
 
-.left_dark{
+.left_dark {
     left: 0;
-    display: none;
-    
+    width: 23.5%;
 }
 
-.btn{
+.btn {
     text-decoration: none;
-    padding: 1rem 2rem;
+    padding: .75rem 1rem;
     font-weight: 700;
     background-color: #B5121B;
     color: white;
-    /* position: absolute; */
+    border-radius: 10px;
+    margin-top: 1em;
 }
 
 
-h2{
-    font-size: 2.3rem;
+/* text animation */
+
+@-webkit-keyframes slidein_left {
+    from {
+        margin-left: -100%;
+        opacity: 0;
+    }
+    to {
+        margin-left: 0%;
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes slidein_right {
+    from {
+        margin-left: 100%;
+    }
+    to {
+        margin-left: 0%;
+    }
+}
+
+@-webkit-keyframes opacity {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: .9;
+    }
 }
