@@ -39,7 +39,6 @@ section {
     align-items: center;
 }
 
-.intro{}
 .section_text {
     position: relative;
 }
@@ -62,11 +61,11 @@ section {
 }
 
 .center_left {
-    left: 15%;
+    left: 12%;
 }
 
 .center_right {
-    left: 65%
+    left: 70%
 }
 
 .left_text {
@@ -76,7 +75,7 @@ section {
 }
 
 .right_text {
-    left: 50%;
+    left: 75%;
     -webkit-animation-duration: 2s;
     -webkit-animation-name: slidein_right;
 }
@@ -90,19 +89,19 @@ section {
     opacity: 0;
     display: none;
     -webkit-animation-duration: 0.7s;
-    -webkit-animation-delay: 2s;
+    -webkit-animation-delay: 1s;
     -webkit-animation-name: opacity;
     animation-fill-mode: forwards;
 }
 
 .right_dark {
     right: 0;
-    width: 25.3%;
+    width: 31.1%;
 }
 
 .left_dark {
     left: 0;
-    width: 26.5%;
+    width: 32.4%;
 }
 
 .btn {
