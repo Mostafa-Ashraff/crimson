@@ -40,16 +40,20 @@ const scene = new THREE.Scene()
 const gltfLoader = new GLTFLoader()
     // console.log(gltfLoader)
 let model;
-gltfLoader.load('/models/Duck/glTF/Logo.gltf',
+gltfLoader.load('/models/Duck/glTF/logo.glb',
     (gltf) => {
         model = gltf.scene
-        model.scale.set(0.01, 0.01, 0.01)
+        model.scale.set(1, 1, 1)
         model.rotation.y = Math.PI;
         model.receiveShadow = true;
         model.castShadow = true;
+        model.children[0].intensity =1.5
+        model.children[1].intensity =1
+        model.children[2].intensity =1
+        model.children[4].children[0].material.roughness =0.6
         // model.position.y = -2;
         scene.add(model)
-            // console.log(gltf.scene)
+        console.log(gltf.scene)
     })
 
 
@@ -89,12 +93,14 @@ window.addEventListener('resize', () => {
  */
 // Base camera
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100)
-camera.position.set(0, 0, 5)
+camera.position.set(0, 0, 15)
+camera.setFocalLength(50.0)
 scene.add(camera)
+
      scene.add(new THREE.AxesHelper());
 
 
-
+     console.log(camera.getFocalLength())
 /**
  * Renderer
  * 
@@ -115,21 +121,21 @@ const heightLight = 280;
 
 // lights
 RectAreaLightUniformsLib.init();
-const rectLight1 = new THREE.RectAreaLight(0xffffff, 2, widthLight, heightLight);
+const rectLight1 = new THREE.RectAreaLight(0xffffff, 0.5, widthLight, heightLight);
 rectLight1.position.set(-6.7, 67, 500);
 scene.add(rectLight1);
 
-const rectLight2 = new THREE.RectAreaLight(0xffffff, 1, widthLight, heightLight);
-rectLight2.position.set(-527, 197, -23);
-scene.add(rectLight2);
+// const rectLight2 = new THREE.RectAreaLight(0xffffff, 1, widthLight, heightLight);
+// rectLight2.position.set(-527, 197, -23);
+// scene.add(rectLight2);
 
-const rectLight3 = new THREE.RectAreaLight(0xffffff, 1, widthLight, heightLight);
-rectLight3.position.set(623, 197, 23);
-scene.add(rectLight3);
+// const rectLight3 = new THREE.RectAreaLight(0xffffff, 1, widthLight, heightLight);
+// rectLight3.position.set(623, 197, 23);
+// scene.add(rectLight3);
 
-scene.add(new RectAreaLightHelper(rectLight1));
-scene.add(new RectAreaLightHelper(rectLight2));
-scene.add(new RectAreaLightHelper(rectLight3));
+// scene.add(new RectAreaLightHelper(rectLight1));
+// scene.add(new RectAreaLightHelper(rectLight2));
+// scene.add(new RectAreaLightHelper(rectLight3));
 /**
  * Animate
  */
@@ -168,10 +174,10 @@ window.addEventListener('mousemove', (e) => {
 
                 if(model !==undefined){
                     gsap.to(model.position,{
-                        x:2.5
+                        x:1
                     })
                     gsap.to(model.rotation,{
-                        y: -Math.PI *0.15
+                        y: 0
                     })
                 }
             }else{
@@ -183,10 +189,10 @@ window.addEventListener('mousemove', (e) => {
                 rightTip.style.display = 'none';
                 if(model !==undefined){
                     gsap.to(model.position,{
-                        x:-2.5
+                        x:-1
                     })
                     gsap.to(model.rotation,{
-                        y: Math.PI *0.15
+                        y: 0
                     })
                 }
             }
@@ -307,11 +313,11 @@ const desktopAnimation = () => {
         scrollTrigger: {
             trigger: ".intro",
             start: "10% 10%",
-            end: "+=600",
+            end: "+=400",
             scrub: 1,
             //markers: true
         }
-    }).to(camera.position, {  z: 3.5 });
+    }).to(camera.position, {  z: 12 });
     if(cursor.x < (window.innerWidth /2)){
         gsap.from('.left_text', {
             scrollTrigger: {

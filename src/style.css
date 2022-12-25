@@ -20,7 +20,7 @@ body.ready {
 .webgl {
     z-index: -1;
     position: fixed;
-    top: 10%;
+    top: 5%;
     left: 0;
     width: 100%;
     height: 100%;
@@ -39,9 +39,7 @@ section {
     align-items: center;
 }
 
-.intro{
-    height: 130vh;
-}
+.intro{}
 .section_text {
     position: relative;
 }
