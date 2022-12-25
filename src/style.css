@@ -39,11 +39,9 @@ section {
     align-items: center;
 }
 
-.w-50 {
-    width: 50%;
-    padding-left: 3em;
+.intro{
+    height: 130vh;
 }
-
 .section_text {
     position: relative;
 }
@@ -93,7 +91,7 @@ section {
     height: 100vh;
     opacity: 0;
     display: none;
-    -webkit-animation-duration: 2s;
+    -webkit-animation-duration: 0.7s;
     -webkit-animation-delay: 2s;
     -webkit-animation-name: opacity;
     animation-fill-mode: forwards;
@@ -101,12 +99,12 @@ section {
 
 .right_dark {
     right: 0;
-    width: 22.3%;
+    width: 25.3%;
 }
 
 .left_dark {
     left: 0;
-    width: 23.5%;
+    width: 26.5%;
 }
 
 .btn {
