@@ -297,7 +297,7 @@ const desktopAnimation = () => {
     let section = 0;
     const tl = gsap.timeline({
         default: {
-            duration: 3,
+            duration: 5,
             ease: "power2.inOut"
         },
         scrollTrigger: {
