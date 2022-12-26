@@ -93,7 +93,7 @@ window.addEventListener('resize', () => {
  */
 // Base camera
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100)
-camera.position.set(0, 0, 15)
+camera.position.set(0, 0, 20)
 camera.setFocalLength(50.0)
 scene.add(camera)
 
@@ -165,7 +165,7 @@ window.addEventListener('mousemove', (e) => {
                     gsap.to(model.rotation, {
                         y: 0
                     });
-                    // media for mob
+                    // media 
                     const mediaQueryMob = window.matchMedia('(max-width: 600px)');
                     const mediaQueryIpad = window.matchMedia('(max-width: 800px)');
                     if (mediaQueryMob.matches) {
@@ -256,7 +256,7 @@ const tick = () => {
                 gsap.to(model.rotation, {
                     y: 0
                 })
-                camera.position.x = -(cursor.x * Math.PI) * 0.5 * 2
+                camera.position.x = -(cursor.x * Math.PI) * 0.5 * 10
                 camera.lookAt(model.position)
 
             }
@@ -297,7 +297,7 @@ const desktopAnimation = () => {
     let section = 0;
     const tl = gsap.timeline({
         default: {
-            duration: 1,
+            duration: 3,
             ease: "power2.inOut"
         },
         scrollTrigger: {

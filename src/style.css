@@ -26,6 +26,10 @@ body.ready {
     height: 100%;
 }
 
+section {
+    height: 100vh;
+}
+
 .page {
     position: relative;
     z-index: 2;
