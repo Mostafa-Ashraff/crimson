@@ -167,7 +167,7 @@ section {
     }
 }
 
-@media (orientation: landscape) {
+@media (max-width: 800px) and(orientation: landscape) {
     .right_dark,
     .left_dark {
         display: none !important;
@@ -175,7 +175,8 @@ section {
     .center_left {
         left: 5%;
     }
-    h3 {
+    .center_left,
+    .center_right {
         font-size: 1em;
     }
 }
