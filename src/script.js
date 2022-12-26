@@ -139,30 +139,24 @@ const cursor = {
 
 
 let btnClicked = false
-var mouseX, mouseY;
 window.addEventListener('mousemove', (e) => {
     //console.log(leftDark, rightDark)
     cursor.x = e.clientX / sizes.width - 0.5;
     cursor.y = e.clientY / sizes.height - 0.5;
-    mouseX = e.clientX;
-    mouseY = e.clientY;
 
     const textSection = document.querySelector('.section_text');
     const observer = new IntersectionObserver(entries => {
-        console.log(entries[0].intersectionRatio)
         if (entries[0].intersectionRatio == 1 && !btnClicked) {
             rectLight1.position.set(-37.66, 77.88, 31.2);
             rectLight1.rotation.set(0, 0, 0)
             rectLight1.intensity = 0.8
             if (cursor.x < 0) {
-                //console.log(rightDark.style.display)
                 rightDark.style.display = 'block';
                 leftDark.style.display = 'none';
                 rightText.style.display = 'none';
                 leftText.style.display = 'flex';
                 leftTip.style.display = 'none';
                 rightTip.style.display  =  'none';
-                //gsap.from(rightDark,{opacity:0})
 
                 if (model !== undefined) {
                     gsap.to(model.position, {
@@ -170,8 +164,31 @@ window.addEventListener('mousemove', (e) => {
                     })
                     gsap.to(model.rotation, {
                         y: 0
-                    })
+                    });
+                    // media for mob
+                    const mediaQueryMob = window.matchMedia('(max-width: 600px)');
+                    const mediaQueryIpad = window.matchMedia('(max-width: 800px)');
+                    if (mediaQueryMob.matches) {
+                        rightDark.style.display = 'none';
+                        leftDark.style.display = 'none';
+                        gsap.to(model.position, {
+                            x: 2,
+                        })
+                        gsap.to(model.rotation, {
+                            y: 0
+                        });
+                    } else if (mediaQueryIpad.matches) {
+                        rightDark.style.display = 'none';
+                        leftDark.style.display = 'none';
+                        gsap.to(model.position, {
+                            x: 3.1,
+                        })
+                        gsap.to(model.rotation, {
+                            y: 0
+                        });
+                    }
                 }
+
             } else {
                 rightDark.style.display = 'none';
                 leftDark.style.display = 'block';
@@ -204,7 +221,7 @@ window.addEventListener('mousemove', (e) => {
             rightTip.style.display  =  'block';
         }
     })
-    observer.observe(textSection)
+    observer.observe(textSection);
 
 });
 
@@ -229,12 +246,9 @@ const tick = () => {
     const elapsedTime = clock.getElapsedTime()
     const deltaTime = elapsedTime - previousTime
     previousTime = elapsedTime
-
-    console.log
     if (model !== undefined) {
         const intro = document.querySelector('.intro');
         const observer = new IntersectionObserver(entries => {
-
             if (entries[0].intersectionRatio > 0.1 && !btnClicked) {
                 gsap.to(model.position, {
                     x: 0
@@ -319,9 +333,8 @@ const desktopAnimation = () => {
 };
 
 setupAnimation();
-console.log(model);
 
-
+// Click on button and zoom
 rightBtn.addEventListener('click', (e) => {
 
     e.preventDefault();

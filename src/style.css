@@ -145,3 +145,37 @@ section {
         opacity: .9;
     }
 }
+
+
+/* media query */
+
+@media only screen and (max-width: 820px) {
+    .center_left,
+    .center_right,
+    .right_dark,
+    .left_dark {
+        display: none !important;
+    }
+}
+
+@media (min-width:400px) and (max-width: 800px) {
+    .btn {
+        font-size: 1.4em;
+    }
+    h3 {
+        font-size: 1.5em;
+    }
+}
+
+@media (orientation: landscape) {
+    .right_dark,
+    .left_dark {
+        display: none !important;
+    }
+    .center_left {
+        left: 5%;
+    }
+    h3 {
+        font-size: 1em;
+    }
+}
